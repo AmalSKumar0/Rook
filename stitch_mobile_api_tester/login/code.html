@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login - API Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#e5deff",
+                        "inverse-primary": "#96d3bd",
+                        "on-secondary-fixed": "#1b1830",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#785841",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#0d503f",
+                        "on-secondary-fixed-variant": "#47445e",
+                        "secondary-fixed-dim": "#c8c3e3",
+                        "tertiary-fixed-dim": "#e8bea2",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-container-low": "#f3f3f3",
+                        "on-secondary-container": "#635f7b",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdcc5",
+                        "inverse-surface": "#2f3131",
+                        "error-container": "#ffdad6",
+                        "outline": "#707974",
+                        "surface-container": "#eeeeee",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f9f9f9",
+                        "on-primary-container": "#2c6957",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#fdd1b4",
+                        "primary-fixed": "#b1efd8",
+                        "primary-container": "#a8e6cf",
+                        "on-surface-variant": "#404945",
+                        "surface-dim": "#dadada",
+                        "primary-fixed-dim": "#96d3bd",
+                        "on-surface": "#1a1c1c",
+                        "primary": "#2c6956",
+                        "on-tertiary-fixed-variant": "#5e402b",
+                        "background": "#f9f9f9",
+                        "on-tertiary-fixed": "#2c1605",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-primary-fixed": "#002118",
+                        "secondary-container": "#e2dcfd",
+                        "outline-variant": "#bfc9c3",
+                        "on-background": "#1a1c1c",
+                        "surface-tint": "#2c6956",
+                        "tertiary": "#785741",
+                        "secondary": "#5f5b77",
+                        "surface": "#f9f9f9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "20px",
+                        "margin-mobile": "20px",
+                        "gutter-mobile": "16px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "lg": "32px",
+                        "xl": "48px"
+                    },
+                    "fontFamily": {
+                        "button-text": ["Plus Jakarta Sans"],
+                        "code-label": ["JetBrains Mono"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "button-text": ["15px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "code-label": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bubbly-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+        }
+        .bubbly-shadow-active {
+            box-shadow: 0px 0px 0px 0px rgba(0,0,0,1);
+        }
+        .bubbly-border {
+            border: 2px solid #1a1c1c;
+        }
+        .soft-accent-bg {
+            background-image: radial-gradient(circle at 10% 20%, rgba(168, 230, 207, 0.2) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(226, 220, 253, 0.2) 0%, transparent 40%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen flex flex-col font-body-lg text-on-background soft-accent-bg">
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center px-margin-mobile py-xl">
+<div class="w-full max-w-md">
+<!-- Branding Section -->
+<div class="text-center mb-xl">
+<div class="inline-flex items-center justify-center p-md bg-secondary-container bubbly-border rounded-xl mb-md bubbly-shadow">
+<span class="material-symbols-outlined text-[48px] text-on-secondary-container" data-icon="api" style="font-variation-settings: 'FILL' 0;">api</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-xs">API Lab</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Welcome back! Let's get testing.</p>
+</div>
+<!-- Login Form Card -->
+<div class="bg-surface-container-lowest bubbly-border rounded-xl p-lg bubbly-shadow mb-lg">
+<form class="space-y-md">
+<!-- Email Input -->
+<div class="space-y-xs">
+<label class="font-button-text text-button-text px-xs" for="email">Work Email</label>
+<div class="relative group">
+<span class="absolute left-md top-1/2 -translate-y-1/2 material-symbols-outlined text-outline group-focus-within:text-primary" data-icon="mail">mail</span>
+<input class="w-full pl-xl pr-md py-md bg-surface bubbly-border rounded-xl focus:ring-0 focus:border-primary focus:border-[3px] transition-all outline-none font-body-lg text-body-lg placeholder:text-outline-variant" id="email" placeholder="dev@company.com" type="email"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-xs">
+<div class="flex justify-between items-center px-xs">
+<label class="font-button-text text-button-text" for="password">Password</label>
+<a class="font-body-sm text-body-sm text-primary hover:underline" href="#">Forgot?</a>
+</div>
+<div class="relative group">
+<span class="absolute left-md top-1/2 -translate-y-1/2 material-symbols-outlined text-outline group-focus-within:text-primary" data-icon="lock">lock</span>
+<input class="w-full pl-xl pr-md py-md bg-surface bubbly-border rounded-xl focus:ring-0 focus:border-primary focus:border-[3px] transition-all outline-none font-body-lg text-body-lg placeholder:text-outline-variant" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-md top-1/2 -translate-y-1/2 text-outline hover:text-on-surface" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- CTA Button -->
+<div class="pt-base">
+<button class="w-full bg-primary-container text-on-primary-container font-button-text text-button-text py-md bubbly-border rounded-xl bubbly-shadow active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex items-center justify-center gap-base" type="submit">
+                            Log In
+                            <span class="material-symbols-outlined text-body-lg" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Social/Other Logins (Bento Style) -->
+<div class="mt-lg pt-lg border-t-2 border-dotted border-outline-variant">
+<p class="text-center font-body-sm text-body-sm text-outline mb-md">Or continue with</p>
+<div class="grid grid-cols-2 gap-sm">
+<button class="flex items-center justify-center py-sm bubbly-border rounded-lg bg-surface hover:bg-surface-variant/50 transition-colors">
+<img alt="Google" class="w-5 h-5 mr-xs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCALfZgefzP-cnfjkqsljIS11pSLal6DpbJoqAvJuWH6jTj1KDEra99JEoPMPSsYPvwLlHLUXVr_5uF2wW0pC8zeiedQpKme3ONzepxoPU4231EpNHihcrxqfSwWXSIvLLpM9wPybI-9qnrf3ao7MY-IjFXUM6Pgwiukgv6onHMPNZDsEy5hV2D3UbyZZwqm1X743GC6m9QOldrf5mvIwfW5samLiaC2pO2k2JMKX05WPXyvzShRcjq-bmgdF1lV0mo7S9gZwxqDJw"/>
+<span class="font-button-text text-button-text">Google</span>
+</button>
+<button class="flex items-center justify-center py-sm bubbly-border rounded-lg bg-inverse-surface text-on-primary transition-colors">
+<span class="material-symbols-outlined text-body-lg mr-xs" data-icon="terminal">terminal</span>
+<span class="font-button-text text-button-text">GitHub</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer Link -->
+<p class="text-center font-body-lg text-body-lg">
+                New to the Lab? 
+                <a class="text-primary font-bold hover:underline decoration-2" href="#">Register here</a>
+</p>
+</div>
+</main>
+<!-- Decorative Illustration (Bubbly style) -->
+<div class="hidden lg:block fixed -bottom-xl -right-xl opacity-20 pointer-events-none">
+<div class="relative w-[400px] h-[400px]">
+<!-- Decorative "Blob" with Image -->
+<div class="absolute inset-0 bg-tertiary-container rounded-full bubbly-border overflow-hidden rotate-12">
+<img class="w-full h-full object-cover grayscale opacity-50" data-alt="A clean high-angle shot of a developer workstation with a mechanical keyboard and dual monitors showing code. The scene is bathed in soft, diffused daylight creating a modern light-mode aesthetic. Soft pastel colors and professional equipment convey an atmosphere of creative productivity and technical focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0zVSA47agJVjr8iGLcWC9kLB8leNOnGEYHayyu7k-7r_QH5VU4lqz9YfZhAyGWkbizFjcg-aq5dvXUu0bkabvmMcmdOy27woAnu65ipVeNSebDYj39nb495IdfXN_g-FKWTYpwMnAdek--Czwucmntvh1qTfziLsH0HzQzDRJUC5JV5q_u0muTbEudxB3YZxgAp7V3JDywbuzBccLG_tT4pl1ZV4fYtI1O29Hk-JRjewvGp1Nm_s2XwHtJgxt3mtu2DNRq1jRzgE"/>
+</div>
+<div class="absolute top-1/4 left-0 w-32 h-32 bg-secondary-container rounded-full bubbly-border bubbly-shadow -rotate-6 flex items-center justify-center">
+<span class="material-symbols-outlined text-[64px] text-on-secondary-container" data-icon="rocket_launch">rocket_launch</span>
+</div>
+</div>
+</div>
+<!-- Background Pattern -->
+<div class="fixed inset-0 -z-10 opacity-5 pointer-events-none" style="background-image: radial-gradient(#1a1c1c 2px, transparent 2px); background-size: 40px 40px;"></div>
+</body></html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>API Lab - Request Builder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .soft-brutalist-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+        }
+        .soft-brutalist-shadow-sm {
+            box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+        }
+        .active-press:active {
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#ffffff",
+                      "surface-container-high": "#e8e8e8",
+                      "surface-variant": "#e2e2e2",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed": "#e5deff",
+                      "inverse-primary": "#96d3bd",
+                      "on-secondary-fixed": "#1b1830",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-container": "#785841",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#0d503f",
+                      "on-secondary-fixed-variant": "#47445e",
+                      "secondary-fixed-dim": "#c8c3e3",
+                      "tertiary-fixed-dim": "#e8bea2",
+                      "inverse-on-surface": "#f1f1f1",
+                      "surface-container-low": "#f3f3f3",
+                      "on-secondary-container": "#635f7b",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed": "#ffdcc5",
+                      "inverse-surface": "#2f3131",
+                      "error-container": "#ffdad6",
+                      "outline": "#707974",
+                      "surface-container": "#eeeeee",
+                      "on-error": "#ffffff",
+                      "surface-bright": "#f9f9f9",
+                      "on-primary-container": "#2c6957",
+                      "on-error-container": "#93000a",
+                      "tertiary-container": "#fdd1b4",
+                      "primary-fixed": "#b1efd8",
+                      "primary-container": "#a8e6cf",
+                      "on-surface-variant": "#404945",
+                      "surface-dim": "#dadada",
+                      "primary-fixed-dim": "#96d3bd",
+                      "on-surface": "#1a1c1c",
+                      "primary": "#2c6956",
+                      "on-tertiary-fixed-variant": "#5e402b",
+                      "background": "#f9f9f9",
+                      "on-tertiary-fixed": "#2c1605",
+                      "surface-container-highest": "#e2e2e2",
+                      "on-primary-fixed": "#002118",
+                      "secondary-container": "#e2dcfd",
+                      "outline-variant": "#bfc9c3",
+                      "on-background": "#1a1c1c",
+                      "surface-tint": "#2c6956",
+                      "tertiary": "#785741",
+                      "secondary": "#5f5b77",
+                      "surface": "#f9f9f9"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "20px",
+                      "margin-mobile": "20px",
+                      "gutter-mobile": "16px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "xs": "4px",
+                      "lg": "32px",
+                      "xl": "48px"
+              },
+              "fontFamily": {
+                      "button-text": ["Plus Jakarta Sans"],
+                      "code-label": ["JetBrains Mono"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "body-sm": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "button-text": ["15px", {"lineHeight": "20px", "fontWeight": "600"}],
+                      "code-label": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                      "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-lg min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-background flex justify-between items-center px-margin-mobile py-base w-full fixed top-0 z-50">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full border-2 border-on-surface overflow-hidden bg-secondary-container">
+<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdYBsqjNHjsdJZ2EOXGJ-PIhvejJ44zTb_B6wAzHG5dt4N767SHksfFQGdC18uxKtQ4r5CPmLcnbkgcjS8DPD413t8Bygb50GaD_veFHMoZ8hVIltt56X5pxzZ8WqHp-jrl84VoFiZk_4eanfvAk1o9xCFqATZoEfaViZHTXD4EKwH2CoJFA6cBER17qr7_dXSEjoQznArM5hqc_elB5Kzbr8HIuj6WtpLW_m3GSKV1HiynhZtmBmNzwI8-6RusQG7TOy4tM6-xCk"/>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-background">API Lab</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl border-2 border-on-surface hover:bg-surface-variant/50 transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="pt-24 px-margin-mobile flex flex-col gap-md">
+<!-- Welcome Section -->
+<section class="flex flex-col gap-xs">
+<h1 class="font-headline-md text-headline-md text-on-surface">Ready to test? 🚀</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Configure your request details below.</p>
+</section>
+<!-- Request Builder Card -->
+<div class="bg-surface-container-lowest border-2 border-on-surface rounded-xl p-md soft-brutalist-shadow flex flex-col gap-md">
+<!-- URL Input Area -->
+<div class="flex flex-col gap-base">
+<label class="font-button-text text-button-text text-on-surface-variant px-xs">Endpoint URL</label>
+<div class="relative">
+<input class="w-full bg-surface-bright border-2 border-on-surface rounded-xl p-md font-code-label text-code-label focus:border-3 focus:ring-0 transition-all placeholder:text-outline-variant" placeholder="https://api.example.com/v1/users" type="text"/>
+</div>
+</div>
+<!-- Method Selector -->
+<div class="flex flex-col gap-base">
+<label class="font-button-text text-button-text text-on-surface-variant px-xs">Method</label>
+<div class="flex flex-wrap gap-sm">
+<button class="px-md py-base rounded-full border-2 border-on-surface bg-primary-container text-on-primary-container font-button-text text-button-text soft-brutalist-shadow-sm active:translate-y-[1px]">GET</button>
+<button class="px-md py-base rounded-full border-2 border-on-surface bg-secondary-fixed text-on-secondary-fixed font-button-text text-button-text hover:bg-secondary-container/50 transition-colors">POST</button>
+<button class="px-md py-base rounded-full border-2 border-on-surface bg-surface-bright text-on-surface-variant font-button-text text-button-text hover:bg-surface-variant/50 transition-colors">PUT</button>
+<button class="px-md py-base rounded-full border-2 border-on-surface bg-surface-bright text-on-surface-variant font-button-text text-button-text hover:bg-surface-variant/50 transition-colors">DELETE</button>
+</div>
+</div>
+<!-- Parameters/Headers Tabs (Simplified for Mobile) -->
+<div class="flex gap-sm border-b-2 border-dotted border-outline-variant pb-base">
+<button class="font-button-text text-button-text text-primary border-b-2 border-primary pb-base px-xs">Headers (3)</button>
+<button class="font-button-text text-button-text text-on-surface-variant pb-base px-xs">Body</button>
+<button class="font-button-text text-button-text text-on-surface-variant pb-base px-xs">Auth</button>
+</div>
+<!-- Send Button -->
+<button class="w-full bg-primary py-md rounded-xl border-2 border-on-surface text-on-primary font-headline-md text-headline-md soft-brutalist-shadow active-press flex items-center justify-center gap-sm">
+<span>Send Request</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+<!-- Response Section -->
+<div class="flex flex-col gap-sm">
+<div class="flex justify-between items-center px-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface">Response</h2>
+<div class="flex gap-xs items-center">
+<span class="w-2 h-2 rounded-full bg-primary-container border border-on-surface"></span>
+<span class="font-code-label text-code-label text-primary">200 OK</span>
+<span class="text-outline-variant mx-xs">|</span>
+<span class="font-code-label text-code-label text-on-surface-variant">142ms</span>
+</div>
+</div>
+<!-- Response Container -->
+<div class="bg-surface-container-lowest border-2 border-on-surface rounded-xl overflow-hidden soft-brutalist-shadow">
+<!-- Color Tab for Status -->
+<div class="h-2 bg-primary-container border-b-2 border-on-surface"></div>
+<div class="p-md bg-white font-code-label text-code-label text-on-surface-variant overflow-x-auto">
+<pre class="leading-relaxed">{
+  <span class="text-primary">"status"</span>: <span class="text-on-tertiary-container">"success"</span>,
+  <span class="text-primary">"data"</span>: {
+    <span class="text-primary">"id"</span>: <span class="text-tertiary">"usr_90210"</span>,
+    <span class="text-primary">"username"</span>: <span class="text-on-tertiary-container">"api_ninja"</span>,
+    <span class="text-primary">"tokens"</span>: [
+      { <span class="text-primary">"type"</span>: <span class="text-on-tertiary-container">"bearer"</span>, <span class="text-primary">"expiry"</span>: <span class="text-tertiary">3600</span> }
+    ],
+    <span class="text-primary">"metadata"</span>: {
+      <span class="text-primary">"last_active"</span>: <span class="text-on-tertiary-container">"2023-10-27T10:00Z"</span>
+    }
+  }
+}</pre>
+</div>
+<!-- Footer Stats -->
+<div class="bg-surface-container-low border-t-2 border-dotted border-outline-variant p-sm flex justify-between">
+<span class="font-body-sm text-body-sm text-outline">Size: 1.2 KB</span>
+<button class="flex items-center gap-xs text-primary font-button-text text-button-text">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+                        Copy JSON
+                    </button>
+</div>
+</div>
+</div>
+<!-- Recent Activity Mini Bento -->
+<div class="grid grid-cols-2 gap-sm">
+<div class="bg-secondary-fixed border-2 border-on-surface rounded-xl p-sm soft-brutalist-shadow-sm">
+<div class="w-8 h-8 rounded-lg bg-white/50 flex items-center justify-center border border-on-surface mb-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">history</span>
+</div>
+<p class="font-button-text text-button-text text-on-secondary-fixed">History</p>
+<p class="text-[11px] text-on-secondary-fixed-variant">24 requests today</p>
+</div>
+<div class="bg-tertiary-fixed border-2 border-on-surface rounded-xl p-sm soft-brutalist-shadow-sm">
+<div class="w-8 h-8 rounded-lg bg-white/50 flex items-center justify-center border border-on-surface mb-xs">
+<span class="material-symbols-outlined text-tertiary text-[20px]">star</span>
+</div>
+<p class="font-button-text text-button-text text-on-tertiary-fixed">Favorites</p>
+<p class="text-[11px] text-on-tertiary-fixed-variant">12 saved flows</p>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-md left-0 right-0 mx-margin-mobile z-50 flex justify-around items-center h-[72px] bg-surface-container-lowest dark:bg-inverse-surface rounded-xl border-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+<a class="text-on-surface-variant dark:text-surface-variant p-2 hover:bg-secondary-container/20 dark:hover:bg-secondary/20 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+</a>
+<a class="bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg p-2 border-2 border-on-surface translate-y-[2px] translate-x-[2px] shadow-none transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">api</span>
+</a>
+<a class="text-on-surface-variant dark:text-surface-variant p-2 hover:bg-secondary-container/20 dark:hover:bg-secondary/20 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">settings_ethernet</span>
+</a>
+</nav>
+<!-- Decorative Blob Background -->
+<div class="fixed top-1/4 -right-20 w-64 h-64 bg-primary-container/20 rounded-full blur-3xl -z-10"></div>
+<div class="fixed bottom-1/4 -left-20 w-64 h-64 bg-secondary-container/20 rounded-full blur-3xl -z-10"></div>
+</body></html>

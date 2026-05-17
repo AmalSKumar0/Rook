@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>API Lab - Registration</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#ffffff",
+                      "surface-container-high": "#e8e8e8",
+                      "surface-variant": "#e2e2e2",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed": "#e5deff",
+                      "inverse-primary": "#96d3bd",
+                      "on-secondary-fixed": "#1b1830",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-container": "#785841",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#0d503f",
+                      "on-secondary-fixed-variant": "#47445e",
+                      "secondary-fixed-dim": "#c8c3e3",
+                      "tertiary-fixed-dim": "#e8bea2",
+                      "inverse-on-surface": "#f1f1f1",
+                      "surface-container-low": "#f3f3f3",
+                      "on-secondary-container": "#635f7b",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed": "#ffdcc5",
+                      "inverse-surface": "#2f3131",
+                      "error-container": "#ffdad6",
+                      "outline": "#707974",
+                      "surface-container": "#eeeeee",
+                      "on-error": "#ffffff",
+                      "surface-bright": "#f9f9f9",
+                      "on-primary-container": "#2c6957",
+                      "on-error-container": "#93000a",
+                      "tertiary-container": "#fdd1b4",
+                      "primary-fixed": "#b1efd8",
+                      "primary-container": "#a8e6cf",
+                      "on-surface-variant": "#404945",
+                      "surface-dim": "#dadada",
+                      "primary-fixed-dim": "#96d3bd",
+                      "on-surface": "#1a1c1c",
+                      "primary": "#2c6956",
+                      "on-tertiary-fixed-variant": "#5e402b",
+                      "background": "#f9f9f9",
+                      "on-tertiary-fixed": "#2c1605",
+                      "surface-container-highest": "#e2e2e2",
+                      "on-primary-fixed": "#002118",
+                      "secondary-container": "#e2dcfd",
+                      "outline-variant": "#bfc9c3",
+                      "on-background": "#1a1c1c",
+                      "surface-tint": "#2c6956",
+                      "tertiary": "#785741",
+                      "secondary": "#5f5b77",
+                      "surface": "#f9f9f9"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "20px",
+                      "margin-mobile": "20px",
+                      "gutter-mobile": "16px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "xs": "4px",
+                      "lg": "32px",
+                      "xl": "48px"
+              },
+              "fontFamily": {
+                      "button-text": ["Plus Jakarta Sans"],
+                      "code-label": ["JetBrains Mono"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "body-sm": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "button-text": ["15px", {"lineHeight": "20px", "fontWeight": "600"}],
+                      "code-label": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                      "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .offset-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+        }
+        .offset-shadow-sm {
+            box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+        }
+        .active-click:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1);
+        }
+        .dot-grid {
+            background-image: radial-gradient(circle, #e2e2e2 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-lg text-body-lg dot-grid selection:bg-primary-container">
+<!-- Suppression of Navigation Shell for Transactional Registration Page -->
+<main class="flex flex-col items-center justify-center min-h-screen px-margin-mobile py-xl relative overflow-hidden">
+<!-- Bubbly Decorative Accents -->
+<div class="absolute -top-20 -left-20 w-64 h-64 bg-secondary-container rounded-full blur-3xl opacity-40 -z-10"></div>
+<div class="absolute top-1/4 -right-10 w-48 h-48 bg-primary-container rounded-full blur-3xl opacity-30 -z-10"></div>
+<div class="absolute -bottom-10 left-1/3 w-80 h-80 bg-tertiary-container rounded-full blur-3xl opacity-20 -z-10"></div>
+<!-- Registration Container -->
+<div class="w-full max-w-[440px] bg-white border-2 border-on-surface rounded-[24px] offset-shadow p-lg z-10 flex flex-col gap-lg">
+<!-- Branding/Icon Section -->
+<div class="flex justify-between items-start">
+<div class="w-14 h-14 bg-primary-container border-2 border-on-surface rounded-xl flex items-center justify-center offset-shadow-sm">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">api</span>
+</div>
+<div class="text-right">
+<p class="font-code-label text-code-label text-outline uppercase tracking-widest">Version 2.4.0</p>
+</div>
+</div>
+<!-- Header -->
+<div class="flex flex-col gap-xs">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Create Account</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Join the community of developers building the future of API integration.</p>
+</div>
+<!-- Form -->
+<form class="flex flex-col gap-md">
+<!-- Full Name Field -->
+<div class="flex flex-col gap-base">
+<label class="font-button-text text-button-text px-xs">Full Name</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary">person</span>
+<input class="w-full pl-xl pr-md py-md bg-surface-bright border-2 border-on-surface rounded-xl font-body-lg text-body-lg outline-none focus:border-[3px] focus:ring-0 transition-all placeholder:text-outline-variant" placeholder="Alex Rivera" type="text"/>
+</div>
+</div>
+<!-- Email Field -->
+<div class="flex flex-col gap-base">
+<label class="font-button-text text-button-text px-xs">Work Email</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary">mail</span>
+<input class="w-full pl-xl pr-md py-md bg-surface-bright border-2 border-on-surface rounded-xl font-body-lg text-body-lg outline-none focus:border-[3px] focus:ring-0 transition-all placeholder:text-outline-variant" placeholder="alex@company.com" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-base">
+<label class="font-button-text text-button-text px-xs">Password</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary">lock</span>
+<input class="w-full pl-xl pr-md py-md bg-surface-bright border-2 border-on-surface rounded-xl font-body-lg text-body-lg outline-none focus:border-[3px] focus:ring-0 transition-all placeholder:text-outline-variant" placeholder="••••••••••••" type="password"/>
+</div>
+<p class="font-body-sm text-body-sm text-outline-variant px-xs">Minimum 8 characters with at least one symbol.</p>
+</div>
+<!-- Submit Button -->
+<button class="mt-base bg-primary-container text-on-primary-container font-button-text text-button-text py-md rounded-xl border-2 border-on-surface offset-shadow-sm active-click transition-all flex items-center justify-center gap-base" type="button">
+<span>Sign Up</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</form>
+<!-- Social/Alt Signup (Bento Style) -->
+<div class="grid grid-cols-2 gap-sm">
+<button class="bg-white border-2 border-on-surface p-base rounded-xl flex items-center justify-center gap-xs offset-shadow-sm active-click transition-all">
+<img alt="Google" class="w-5 h-5 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfiumEnQU0mEP5xLIc8NU0wqgLCvuq6NtpmStifzgdL8ZfSbnfhM4lN7s7NNdKLukqwc1tHQ_uUDODaG7qKmjbwgKU7TpSvb0qYW1tW9hcCDte39GXgZm_vPuzWZFhSUGSBXeDv6utvgekK7a1ZQd7QnLNUpCfvd7gwNHSgTHQD5fxAtoXZsKG9ML2Jtmvi8ZJQCAjZoH3_U95T9XGsYeBcixVAVSSNGvnlV1r-xygBnnP8VcnD_yy2_vykWZ1N2CqD-NZpABmTjM"/>
+<span class="font-button-text text-button-text">Google</span>
+</button>
+<button class="bg-white border-2 border-on-surface p-base rounded-xl flex items-center justify-center gap-xs offset-shadow-sm active-click transition-all">
+<span class="material-symbols-outlined text-xl">terminal</span>
+<span class="font-button-text text-button-text">GitHub</span>
+</button>
+</div>
+<!-- Footer Link -->
+<div class="text-center pt-base">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Already have an account? 
+                    <a class="text-primary font-bold hover:underline underline-offset-4 decoration-2" href="#">Log In</a>
+</p>
+</div>
+</div>
+<!-- Aesthetic Footer Component -->
+<div class="mt-lg flex items-center gap-md">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-on-surface object-cover" data-alt="A professional studio portrait of a young tech professional with a friendly smile, clean soft lighting, set against a minimal light-grey studio background. The aesthetic is modern and high-key, maintaining the clean light-mode visual identity of the API Lab application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6MzBRYZxG4onY7n5-SL0TCL351kZ8PY6PHT7IalZz7Y7b5ovfUtyq1ALyZ5ROQXoNAE68D4BriBn8drH4D3aGcEoANiwXEa-TMFzwIDMV5EoNYrSUbhMXZjVXt6GoZt00L16CCDrFkj7naWTKoeVFRAlRpwKbsE7fqe9a1gKNlckYOQvlnBsftQlQ0s8wZwFWvwzQ5jMKIQXa0i_rEoV8LTZor3TMQM7rrWEQxth5r2PfFx9ZEsTyWI69FN0yTlvxVmJouhlehHQ"/>
+<img class="w-8 h-8 rounded-full border-2 border-on-surface object-cover" data-alt="A smiling female developer in a bright creative studio workspace. Warm natural light fills the frame, creating an optimistic and professional atmosphere. The image uses a soft palette that complements the pastel and mint tones of the UI design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2pbb1-WT42RzBo7IawBhN2w4CAPJg4qW-S3uhglBhxUF2y0ekJeZ452FNBZaibrPod2J8Au9VphIlwuT3tjdRsOIir74rkcTjYVq1BlL4MoOOLHyxqcd2f-fu7H7NaEmQgs_UZ3A4pmC3HdTrUyydNivSchwrZJB8G56wSo5lwWkFqzZk0Bk1Xb6QDLigrYtDhnTMc_0Lbj9mEz-aLuA8ezqY0gAgLP4aU5R8Gj7Te4tdFplZp1SB0WoqBu1_-1KeboA-2BIrpA8"/>
+<div class="w-8 h-8 rounded-full border-2 border-on-surface bg-secondary-container flex items-center justify-center text-[10px] font-bold">+12k</div>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Joined by 12,000+ developers</p>
+</div>
+</main>
+<!-- Bottom Illustration (Contextual) -->
+<div class="fixed bottom-0 left-0 right-0 h-2 bg-primary transform origin-left scale-x-0 transition-transform duration-500"></div>
+</body></html>
