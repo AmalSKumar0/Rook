@@ -2,8 +2,59 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Rook" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryContainer">@color/secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/on_secondary_container</item>
+        <item name="colorTertiary">@color/tertiary</item>
+        <item name="colorTertiaryContainer">@color/tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/on_tertiary_container</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorErrorContainer">@color/error_container</item>
+        <item name="colorOnErrorContainer">@color/on_error_container</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="android:windowBackground">@color/surface</item>
     </style>
 
     <style name="Theme.Rook" parent="Base.Theme.Rook" />
+
+    <!-- Custom Button Style (Bubbly Soft-Brutalist) -->
+    <style name="Widget.Bubbly.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/primary_container</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="strokeColor">@color/stroke</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Secondary Button -->
+    <style name="Widget.Bubbly.Button.Secondary" parent="Widget.Bubbly.Button">
+        <item name="backgroundTint">@color/secondary_container</item>
+    </style>
+    
+    <!-- Outline Button -->
+    <style name="Widget.Bubbly.Button.Outlined" parent="Widget.Bubbly.Button">
+        <item name="backgroundTint">@color/surface_container_lowest</item>
+        <item name="strokeColor">@color/outline</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+    </style>
+
+    <!-- Custom TextInputLayout (Bubbly) -->
+    <style name="Widget.Bubbly.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/stroke</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxStrokeWidthFocused">3dp</item>
+        <item name="boxCornerRadiusTopStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+        <item name="boxBackgroundColor">@color/surface_container_lowest</item>
+        <item name="hintTextColor">@color/on_surface_variant</item>
+        <item name="android:textColorHint">@color/on_surface_variant</item>
+    </style>
+
 </resources>

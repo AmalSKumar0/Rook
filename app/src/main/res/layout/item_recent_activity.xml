@@ -8,8 +8,8 @@
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp"
     app:strokeWidth="2dp"
-    app:strokeColor="#1a1c1c"
-    app:cardBackgroundColor="#ffffff">
+    app:strokeColor="@color/stroke"
+    app:cardBackgroundColor="@color/surface_container_lowest">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:id="@+id/vStatusIndicator"
             android:layout_width="12dp"
             android:layout_height="0dp"
-            android:background="#a8e6cf"
+            android:background="@color/primary_container"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +28,7 @@
         <View
             android:layout_width="2dp"
             android:layout_height="0dp"
-            android:background="#1a1c1c"
+            android:background="@color/stroke"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/vStatusIndicator"
             app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="monospace"
-                android:textColor="#1a1c1c"
+                android:textColor="@color/on_surface"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 tools:text="POST /v1/auth/login" />
@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="#707974"
+                android:textColor="@color/outline"
                 android:textSize="12sp"
                 tools:text="2 mins ago" />
         </LinearLayout>
@@ -70,11 +70,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            app:cardBackgroundColor="#a8e6cf"
+            app:cardBackgroundColor="@color/primary_container"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
             app:strokeWidth="2dp"
-            app:strokeColor="#1a1c1c"
+            app:strokeColor="@color/stroke"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -92,7 +92,7 @@
                     android:layout_width="8dp"
                     android:layout_height="8dp"
                     android:layout_marginEnd="6dp"
-                    app:cardBackgroundColor="#2c6956"
+                    app:cardBackgroundColor="@color/primary"
                     app:cardCornerRadius="4dp"
                     app:cardElevation="0dp"
                     app:strokeWidth="0dp"/>
@@ -101,7 +101,7 @@
                     android:id="@+id/tvStatusCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#2c6957"
+                    android:textColor="@color/on_primary_container"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     tools:text="200 OK" />

@@ -1,0 +1,386 @@
+package com.example.rook;
+
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.tabs.TabLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+public class ApiLabActivity extends AppCompatActivity {
+
+    private DatabaseHelper dbHelper;
+    private OkHttpClient client;
+    private long projectId = -1;
+    private String selectedMethod = "GET";
+    private String selectedAuthType = "None";
+    
+    private EditText etApiPath, etApiUrl, etApiDescription, etHeaders, etBody;
+    private MaterialButton btnGet, btnPost, btnPut, btnDelete;
+    private TabLayout tabLayout;
+    
+    // Auth Views
+    private LinearLayout layoutAuth, layoutBasicAuth;
+    private Spinner spinnerAuthType;
+    private EditText etAuthToken, etAuthUsername, etAuthPassword;
+    private TextView tvNoAuth;
+    
+    private TextView tvResponseStatus, tvResponseTime, tvResponseSize, tvResponseContent;
+    private TextView tvHistoryCount, tvFavoritesCount;
+    private View vStatusIndicator;
+    private ProgressBar responseProgressBar;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_api_lab);
+
+        dbHelper = new DatabaseHelper(this);
+        client = new OkHttpClient();
+        projectId = getIntent().getLongExtra("PROJECT_ID", -1);
+
+        NavigationUtils.setupAppChrome(this, "API Lab", true);
+        
+        TextView headerSubtitle = findViewById(R.id.headerSubtitle);
+        if (headerSubtitle != null) headerSubtitle.setText("Request Builder");
+
+        initViews();
+        setupMethodButtons();
+        setupTabs();
+        setupAuthTypeSpinner();
+
+        findViewById(R.id.btnSaveApi).setOnClickListener(v -> saveApi());
+        findViewById(R.id.btnSendRequest).setOnClickListener(v -> sendRequest());
+        findViewById(R.id.btnCopyResponse).setOnClickListener(v -> copyResponseToClipboard());
+        
+        loadStats();
+    }
+
+    private void initViews() {
+        etApiPath = findViewById(R.id.etApiPath);
+        etApiUrl = findViewById(R.id.etApiUrl);
+        etApiDescription = findViewById(R.id.etApiDescription);
+        etHeaders = findViewById(R.id.etHeaders);
+        etBody = findViewById(R.id.etBody);
+        
+        btnGet = findViewById(R.id.btnGet);
+        btnPost = findViewById(R.id.btnPost);
+        btnPut = findViewById(R.id.btnPut);
+        btnDelete = findViewById(R.id.btnDelete);
+        
+        tabLayout = findViewById(R.id.tabLayout);
+        
+        layoutAuth = findViewById(R.id.layoutAuth);
+        layoutBasicAuth = findViewById(R.id.layoutBasicAuth);
+        spinnerAuthType = findViewById(R.id.spinnerAuthType);
+        etAuthToken = findViewById(R.id.etAuthToken);
+        etAuthUsername = findViewById(R.id.etAuthUsername);
+        etAuthPassword = findViewById(R.id.etAuthPassword);
+        tvNoAuth = findViewById(R.id.tvNoAuth);
+        
+        tvResponseStatus = findViewById(R.id.tvResponseStatus);
+        tvResponseTime = findViewById(R.id.tvResponseTime);
+        tvResponseSize = findViewById(R.id.tvResponseSize);
+        tvResponseContent = findViewById(R.id.tvResponseContent);
+        vStatusIndicator = findViewById(R.id.vStatusIndicator);
+        responseProgressBar = findViewById(R.id.responseProgressBar);
+        
+        tvHistoryCount = findViewById(R.id.tvHistoryCount);
+        tvFavoritesCount = findViewById(R.id.tvFavoritesCount);
+    }
+
+    private void setupAuthTypeSpinner() {
+        String[] authTypes = {"None", "Bearer Token", "Basic Auth"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, authTypes);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAuthType.setAdapter(adapter);
+
+        spinnerAuthType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedAuthType = authTypes[position];
+                updateAuthFieldsVisibility();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+    }
+
+    private void updateAuthFieldsVisibility() {
+        tvNoAuth.setVisibility(selectedAuthType.equals("None") ? View.VISIBLE : View.GONE);
+        etAuthToken.setVisibility(selectedAuthType.equals("Bearer Token") ? View.VISIBLE : View.GONE);
+        layoutBasicAuth.setVisibility(selectedAuthType.equals("Basic Auth") ? View.VISIBLE : View.GONE);
+    }
+
+    private void loadStats() {
+        if (tvHistoryCount != null) {
+            int count = dbHelper.getHistoryCount();
+            tvHistoryCount.setText(count + (count == 1 ? " request today" : " requests today"));
+        }
+        if (tvFavoritesCount != null) {
+            int count = dbHelper.getEndpointCount();
+            tvFavoritesCount.setText(count + (count == 1 ? " saved endpoint" : " saved endpoints"));
+        }
+    }
+
+    private void setupMethodButtons() {
+        btnGet.setOnClickListener(v -> selectMethod("GET"));
+        btnPost.setOnClickListener(v -> selectMethod("POST"));
+        btnPut.setOnClickListener(v -> selectMethod("PUT"));
+        btnDelete.setOnClickListener(v -> selectMethod("DELETE"));
+        
+        selectMethod("GET"); // Default
+    }
+
+    private void setupTabs() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                etHeaders.setVisibility(position == 0 ? View.VISIBLE : View.GONE);
+                etBody.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
+                layoutAuth.setVisibility(position == 2 ? View.VISIBLE : View.GONE);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+    }
+
+    private void selectMethod(String method) {
+        selectedMethod = method;
+        
+        // Reset all to default
+        resetButtonStyle(btnGet);
+        resetButtonStyle(btnPost);
+        resetButtonStyle(btnPut);
+        resetButtonStyle(btnDelete);
+
+        // Highlight selected
+        switch (method) {
+            case "GET":
+                setSelectedButtonStyle(btnGet, R.color.primary_container, R.color.on_primary_container);
+                break;
+            case "POST":
+                setSelectedButtonStyle(btnPost, R.color.secondary_container, R.color.on_secondary_container);
+                break;
+            case "PUT":
+                setSelectedButtonStyle(btnPut, R.color.tertiary_container, R.color.on_tertiary_container);
+                break;
+            case "DELETE":
+                setSelectedButtonStyle(btnDelete, R.color.error_container, R.color.on_error_container);
+                break;
+        }
+    }
+
+    private void resetButtonStyle(MaterialButton btn) {
+        btn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.surface_container_lowest)));
+        btn.setTextColor(ContextCompat.getColor(this, R.color.on_surface_variant));
+        btn.setStrokeColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.stroke)));
+    }
+
+    private void setSelectedButtonStyle(MaterialButton btn, int bgColorRes, int textColorRes) {
+        btn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, bgColorRes)));
+        btn.setTextColor(ContextCompat.getColor(this, textColorRes));
+        btn.setStrokeColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.stroke)));
+    }
+
+    private void sendRequest() {
+        String url = etApiUrl.getText().toString().trim();
+        if (TextUtils.isEmpty(url)) {
+            etApiUrl.setError("URL is required");
+            return;
+        }
+
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            url = "https://" + url;
+        }
+
+        final String finalUrl = url;
+        final String headersStr = etHeaders.getText().toString().trim();
+        final String bodyStr = etBody.getText().toString().trim();
+
+        Request.Builder builder = new Request.Builder().url(finalUrl);
+        
+        // Add custom headers
+        if (!TextUtils.isEmpty(headersStr)) {
+            String[] lines = headersStr.split("\n");
+            for (String line : lines) {
+                int index = line.indexOf(":");
+                if (index > 0) {
+                    String key = line.substring(0, index).trim();
+                    String value = line.substring(index + 1).trim();
+                    if (!key.isEmpty()) builder.addHeader(key, value);
+                }
+            }
+        }
+
+        // Add Auth header
+        applyAuth(builder);
+
+        // Add body if applicable
+        if (!selectedMethod.equals("GET")) {
+            RequestBody body = RequestBody.create(bodyStr, MediaType.parse("application/json; charset=utf-8"));
+            builder.method(selectedMethod, body);
+        } else {
+            builder.get();
+        }
+
+        responseProgressBar.setVisibility(View.VISIBLE);
+        tvResponseContent.setText("Executing request...");
+        final long startTime = System.currentTimeMillis();
+
+        client.newCall(builder.build()).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                runOnUiThread(() -> {
+                    responseProgressBar.setVisibility(View.GONE);
+                    updateResponseUI(0, "ERROR", System.currentTimeMillis() - startTime, e.getMessage());
+                });
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                final String responseBody = response.body() != null ? response.body().string() : "";
+                final int code = response.code();
+                final String message = response.message();
+                final long duration = System.currentTimeMillis() - startTime;
+
+                runOnUiThread(() -> {
+                    responseProgressBar.setVisibility(View.GONE);
+                    updateResponseUI(code, message, duration, responseBody);
+                    
+                    // Add to history
+                    dbHelper.addHistory(selectedMethod, etApiPath.getText().toString(), code + " " + message, (int)duration, responseBody);
+                    loadStats();
+                });
+            }
+        });
+    }
+
+    private void applyAuth(Request.Builder builder) {
+        if ("Bearer Token".equals(selectedAuthType)) {
+            String token = etAuthToken.getText().toString().trim();
+            if (!token.isEmpty()) {
+                builder.header("Authorization", "Bearer " + token);
+            }
+        } else if ("Basic Auth".equals(selectedAuthType)) {
+            String username = etAuthUsername.getText().toString().trim();
+            String password = etAuthPassword.getText().toString().trim();
+            String credentials = username + ":" + password;
+            String auth = "Basic " + android.util.Base64.encodeToString(credentials.getBytes(), android.util.Base64.NO_WRAP);
+            builder.header("Authorization", auth);
+        }
+    }
+
+    private void updateResponseUI(int code, String message, long duration, String body) {
+        tvResponseStatus.setText(code + " " + message);
+        tvResponseTime.setText(duration + "ms");
+        
+        if (body != null) {
+            tvResponseSize.setText(String.format("%.2f KB", body.length() / 1024f));
+            try {
+                // Try to format JSON
+                if (body.startsWith("{")) {
+                    tvResponseContent.setText(new JSONObject(body).toString(2));
+                } else if (body.startsWith("[")) {
+                    tvResponseContent.setText(new JSONArray(body).toString(2));
+                } else {
+                    tvResponseContent.setText(body);
+                }
+            } catch (JSONException e) {
+                tvResponseContent.setText(body);
+            }
+        } else {
+            tvResponseSize.setText("0 KB");
+            tvResponseContent.setText("(No Content)");
+        }
+
+        // Update status indicator color
+        if (code >= 200 && code < 300) {
+            vStatusIndicator.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary)));
+            tvResponseStatus.setTextColor(ContextCompat.getColor(this, R.color.primary));
+        } else {
+            vStatusIndicator.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.error)));
+            tvResponseStatus.setTextColor(ContextCompat.getColor(this, R.color.error));
+        }
+    }
+
+    private void saveApi() {
+        String path = etApiPath.getText().toString().trim();
+        String url = etApiUrl.getText().toString().trim();
+        String desc = etApiDescription.getText().toString().trim();
+        String headers = etHeaders.getText().toString().trim();
+        String body = etBody.getText().toString().trim();
+        
+        String authToken = etAuthToken.getText().toString().trim();
+        String authUser = etAuthUsername.getText().toString().trim();
+        String authPass = etAuthPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(path)) {
+            etApiPath.setError("Path is required");
+            return;
+        }
+        if (TextUtils.isEmpty(url)) {
+            etApiUrl.setError("URL is required");
+            return;
+        }
+
+        if (!path.startsWith("/")) {
+            path = "/" + path;
+        }
+
+        long result = dbHelper.addEndpoint(projectId, selectedMethod, path, desc, url, headers, body,
+                selectedAuthType, authToken, authUser, authPass);
+        if (result != -1) {
+            Toast.makeText(this, "API Saved to Collection", Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            Toast.makeText(this, "Failed to save API", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void copyResponseToClipboard() {
+        String content = tvResponseContent.getText().toString();
+        if (!TextUtils.isEmpty(content)) {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("API Response", content);
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(this, "Response copied to clipboard", Toast.LENGTH_SHORT).show();
+        }
+    }
+}

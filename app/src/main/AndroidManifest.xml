@@ -26,7 +26,28 @@
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".CreateProjectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyApisActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProjectDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReportsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TestApiActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ApiLabActivity"
             android:exported="false" />
     </application>
 

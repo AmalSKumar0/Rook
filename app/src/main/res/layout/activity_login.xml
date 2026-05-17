@@ -4,61 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="?attr/colorSurface"
     tools:context=".LoginActivity">
 
+    <!-- Bubbly App Logo -->
     <ImageView
-        android:id="@+id/ivIllustration"
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:src="@drawable/illustration_api_tools"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/cvHeader"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/ic_bubbly_logo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Welcome Back"
+        android:text="Welcome to Rook"
         android:textSize="32sp"
-        android:textColor="#333333"
+        android:textColor="@color/on_surface"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivIllustration" />
+        app:layout_constraintTop_toBottomOf="@+id/cvHeader" />
+
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Your soft-brutalist testing tool."
+        android:textColor="@color/on_surface_variant"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.Bubbly.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="32dp"
         android:hint="Email"
-        app:hintTextColor="#888888"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtitle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:textColor="#333333"
-            android:textColorHint="#888888" />
+            android:textColor="@color/on_surface" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.Bubbly.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="16dp"
         android:hint="Password"
-        app:hintTextColor="#888888"
         app:endIconMode="password_toggle"
         app:layout_constraintTop_toBottomOf="@+id/tilEmail">
 
@@ -67,19 +77,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:textColor="#333333"
-            android:textColorHint="#888888" />
+            android:textColor="@color/on_surface" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
+        style="@style/Widget.Bubbly.Button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="32dp"
         android:text="Login"
         android:textSize="18sp"
-        app:cornerRadius="8dp"
         app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
 
     <ProgressBar
@@ -98,8 +107,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Don't have an account? Register"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="@color/primary"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
@@ -116,27 +126,28 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="2dp"
             android:layout_weight="1"
-            android:background="#E0E0E0" />
+            android:background="@color/stroke" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:text="OR"
-            android:textColor="#888888" />
+            android:textStyle="bold"
+            android:textColor="@color/on_surface_variant" />
 
         <View
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="2dp"
             android:layout_weight="1"
-            android:background="#E0E0E0" />
+            android:background="@color/stroke" />
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGoogle"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/Widget.Bubbly.Button.Outlined"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="24dp"
@@ -144,12 +155,9 @@
         android:layout_marginBottom="24dp"
         android:text="Continue with Google"
         android:textAllCaps="false"
-        android:textColor="#333333"
         android:textSize="16sp"
-        app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llDivider"
-        app:layout_constraintVertical_bias="0.0"
-        app:strokeColor="#E0E0E0" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

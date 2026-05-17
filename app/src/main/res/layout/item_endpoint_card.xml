@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/surface_container_lowest"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:strokeWidth="2dp"
+    app:strokeColor="@color/stroke">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Left Content -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Method + Version row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tvMethodBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
+                    android:text="GET"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="8dp"
+                    tools:background="@drawable/bg_badge_get"
+                    tools:textColor="@color/on_primary_container" />
+
+                <TextView
+                    android:id="@+id/tvVersion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="v1"
+                    android:textColor="@color/outline"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <!-- Path -->
+            <TextView
+                android:id="@+id/tvPath"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="/users/profile"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="@color/primary"
+                android:layout_marginBottom="4dp" />
+
+            <!-- Description -->
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Endpoint description goes here."
+                android:textColor="@color/on_surface_variant"
+                android:textSize="13sp"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Footer row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/ivSecurityIcon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@android:drawable/ic_secure"
+                    android:visibility="gone"
+                    app:tint="@color/error" />
+
+                <TextView
+                    android:id="@+id/tvSecurityLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:text="Admin Only"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
+                <View
+                    android:id="@+id/spacer"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnTest"
+                    style="@style/Widget.Bubbly.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Test"
+                    app:icon="@android:drawable/ic_media_play"
+                    android:textSize="13sp"
+                    android:paddingHorizontal="16dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Right Accent Stripe -->
+        <View
+            android:id="@+id/vAccentStripe"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            tools:background="@color/primary_container" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
