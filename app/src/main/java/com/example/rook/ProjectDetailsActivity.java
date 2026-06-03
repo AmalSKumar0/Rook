@@ -267,137 +267,9 @@ public class ProjectDetailsActivity extends AppCompatActivity {
             return;
         }
 
-        if (btnTestCollection != null) {
-            btnTestCollection.setEnabled(false);
-            btnTestCollection.setText("Testing 0/" + endpointList.size());
-        }
-        testEndpointAtIndex(0, 0, 0);
-    }
-
-    private void testEndpointAtIndex(int index, int successes, int failures) {
-        if (index >= endpointList.size()) {
-            int total = successes + failures;
-            if (btnTestCollection != null) {
-                btnTestCollection.setEnabled(true);
-                btnTestCollection.setText("Test Collection");
-            }
-            Toast.makeText(this, "Collection test complete: " + successes + "/" + total + " passed.", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        Endpoint endpoint = endpointList.get(index);
-        runOnUiThread(() -> {
-            if (btnTestCollection != null) {
-                btnTestCollection.setText("Testing " + (index + 1) + "/" + endpointList.size());
-            }
-        });
-
-        String requestUrl = normalizeUrl(endpoint.url);
-        if (TextUtils.isEmpty(requestUrl)) {
-            long timestamp = System.currentTimeMillis();
-            dbHelper.addTestResult(endpoint.id, projectId, "", endpoint.method, endpoint.headers, endpoint.body,
-                    "Missing request URL", 0, 0, "FAILURE", timestamp);
-            dbHelper.addHistory(endpoint.method, endpoint.path, "ERROR", 0, "Missing request URL");
-            testEndpointAtIndex(index + 1, successes, failures + 1);
-            return;
-        }
-
-        Request.Builder builder = new Request.Builder().url(requestUrl);
-        applyHeaders(builder, endpoint.headers);
-        applyAuth(builder, endpoint);
-
-        String method = endpoint.method.toUpperCase();
-        String body = endpoint.body != null ? endpoint.body : "";
-        RequestBody requestBody = RequestBody.create(body, MediaType.parse("application/json; charset=utf-8"));
-        switch (method) {
-            case "POST":
-                builder.post(requestBody);
-                break;
-            case "PUT":
-                builder.put(requestBody);
-                break;
-            case "DELETE":
-                if (body.isEmpty()) {
-                    builder.delete();
-                } else {
-                    builder.delete(requestBody);
-                }
-                break;
-            default:
-                builder.get();
-                break;
-        }
-
-        long startedAt = System.currentTimeMillis();
-        try {
-            client.newCall(builder.build()).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                long responseTime = System.currentTimeMillis() - startedAt;
-                long timestamp = System.currentTimeMillis();
-                dbHelper.addTestResult(endpoint.id, projectId, requestUrl, endpoint.method, endpoint.headers, body,
-                        e.getMessage(), 0, (int) responseTime, "FAILURE", timestamp);
-                dbHelper.addHistory(endpoint.method, endpoint.path, "ERROR", (int) responseTime, e.getMessage());
-                runOnUiThread(() -> testEndpointAtIndex(index + 1, successes, failures + 1));
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                long responseTime = System.currentTimeMillis() - startedAt;
-                int statusCode = response.code();
-                String responseBody = response.body() != null ? response.body().string() : "";
-                String resultStatus = statusCode >= 200 && statusCode < 300 ? "SUCCESS" : "FAILURE";
-                long timestamp = System.currentTimeMillis();
-
-                dbHelper.addTestResult(endpoint.id, projectId, requestUrl, endpoint.method, endpoint.headers, body,
-                        responseBody, statusCode, (int) responseTime, resultStatus, timestamp);
-                dbHelper.addHistory(endpoint.method, endpoint.path, statusCode + " " + response.message(), (int) responseTime, responseBody);
-
-                int nextSuccesses = "SUCCESS".equals(resultStatus) ? successes + 1 : successes;
-                int nextFailures = "SUCCESS".equals(resultStatus) ? failures : failures + 1;
-                runOnUiThread(() -> testEndpointAtIndex(index + 1, nextSuccesses, nextFailures));
-            }
-            });
-        } catch (IllegalArgumentException e) {
-            long responseTime = System.currentTimeMillis() - startedAt;
-            dbHelper.addTestResult(endpoint.id, projectId, requestUrl, endpoint.method, endpoint.headers, body,
-                    e.getMessage(), 0, (int) responseTime, "FAILURE", System.currentTimeMillis());
-            dbHelper.addHistory(endpoint.method, endpoint.path, "ERROR", (int) responseTime, e.getMessage());
-            testEndpointAtIndex(index + 1, successes, failures + 1);
-        }
-    }
-
-    private String normalizeUrl(String url) {
-        if (url == null) return "";
-        String trimmed = url.trim();
-        if (!trimmed.startsWith("http://") && !trimmed.startsWith("https://")) {
-            return "https://" + trimmed;
-        }
-        return trimmed;
-    }
-
-    private void applyHeaders(Request.Builder builder, String headers) {
-        if (TextUtils.isEmpty(headers)) return;
-        String[] lines = headers.split("\\n");
-        for (String line : lines) {
-            int separator = line.indexOf(':');
-            if (separator <= 0) continue;
-            String name = line.substring(0, separator).trim();
-            String value = line.substring(separator + 1).trim();
-            if (!name.isEmpty() && !value.isEmpty()) {
-                builder.addHeader(name, value);
-            }
-        }
-    }
-
-    private void applyAuth(Request.Builder builder, Endpoint endpoint) {
-        if ("Bearer Token".equalsIgnoreCase(endpoint.authType) && !TextUtils.isEmpty(endpoint.authToken)) {
-            builder.header("Authorization", "Bearer " + endpoint.authToken);
-        } else if ("Basic Auth".equalsIgnoreCase(endpoint.authType)) {
-            String credentials = endpoint.authUsername + ":" + endpoint.authPassword;
-            String auth = "Basic " + android.util.Base64.encodeToString(credentials.getBytes(), android.util.Base64.NO_WRAP);
-            builder.header("Authorization", auth);
-        }
+        Intent intent = new Intent(this, CollectionTestResultActivity.class);
+        intent.putExtra("PROJECT_ID", projectId);
+        startActivity(intent);
     }
 
     private void showEditCollectionDialog() {
@@ -533,26 +405,26 @@ public class ProjectDetailsActivity extends AppCompatActivity {
                     : "No description provided.");
             holder.tvMethodBadge.setText(item.method);
 
-            // Dynamically apply Brutalist background badges + stripes + path text colors
-            int accentColor = Color.parseColor("#a8e6cf"); // Green default
+            // Notion Design System badge + accent stripe colors
+            int accentColor = Color.parseColor("#d9f3e1"); // Mint – GET default
             int badgeBg = R.drawable.bg_badge_get;
-            int badgeTextColor = Color.parseColor("#2c6957");
+            int badgeTextColor = Color.parseColor("#1aae39"); // Brand green
 
             switch (item.method.toUpperCase()) {
                 case "POST":
-                    accentColor = Color.parseColor("#e2dcfd"); // Lavender
+                    accentColor = Color.parseColor("#e6e0f5"); // Lavender
                     badgeBg = R.drawable.bg_badge_post;
-                    badgeTextColor = Color.parseColor("#635f7b");
+                    badgeTextColor = Color.parseColor("#391c57"); // Brand purple 800
                     break;
                 case "PUT":
-                    accentColor = Color.parseColor("#fdd1b4"); // Orange
+                    accentColor = Color.parseColor("#ffe8d4"); // Peach
                     badgeBg = R.drawable.bg_badge_put;
-                    badgeTextColor = Color.parseColor("#785841");
+                    badgeTextColor = Color.parseColor("#793400"); // Brand orange deep
                     break;
                 case "DELETE":
-                    accentColor = Color.parseColor("#ffdad6"); // Peach Red
+                    accentColor = Color.parseColor("#fde0ec"); // Rose
                     badgeBg = R.drawable.bg_badge_delete;
-                    badgeTextColor = Color.parseColor("#93000a");
+                    badgeTextColor = Color.parseColor("#e03131"); // Semantic error
                     break;
             }
 

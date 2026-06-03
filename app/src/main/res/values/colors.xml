@@ -1,49 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Bubbly API System Colors -->
-    <color name="surface">#f9f9f9</color>
-    <color name="surface_dim">#dadada</color>
-    <color name="surface_container_lowest">#ffffff</color>
-    <color name="surface_container_low">#f3f3f3</color>
-    <color name="on_surface">#1a1c1c</color>
-    <color name="on_surface_variant">#404945</color>
+    <!-- Notion Core Colors -->
+    <color name="notion_primary">#5645d4</color>
+    <color name="notion_primary_pressed">#4534b3</color>
+    <color name="notion_primary_deep">#3a2a99</color>
+    <color name="notion_on_primary">#ffffff</color>
+    <color name="notion_brand_navy">#0a1530</color>
+    <color name="notion_brand_navy_deep">#070f24</color>
+    <color name="notion_brand_navy_mid">#1a2a52</color>
+    <color name="notion_link_blue">#0075de</color>
+    <color name="notion_link_blue_pressed">#005bab</color>
     
-    <color name="outline">#707974</color>
-    <color name="outline_variant">#bfc9c3</color>
-    <color name="stroke">#1a1c1c</color>
+    <!-- Notion Spectrum Accents -->
+    <color name="notion_brand_pink">#ff64c8</color>
+    <color name="notion_brand_pink_deep">#a02e6d</color>
+    <color name="notion_brand_orange">#dd5b00</color>
+    <color name="notion_brand_orange_deep">#793400</color>
+    <color name="notion_brand_purple">#7b3ff2</color>
+    <color name="notion_brand_purple_300">#d6b6f6</color>
+    <color name="notion_brand_purple_800">#391c57</color>
+    <color name="notion_brand_teal">#2a9d99</color>
+    <color name="notion_brand_green">#1aae39</color>
+    <color name="notion_brand_yellow">#f5d75e</color>
+    <color name="notion_brand_brown">#523410</color>
 
-    <!-- Primary (Mint Green) -->
-    <color name="primary">#2c6956</color>
-    <color name="on_primary">#ffffff</color>
-    <color name="primary_container">#a8e6cf</color>
-    <color name="on_primary_container">#2c6957</color>
+    <!-- Notion Card Tints -->
+    <color name="notion_card_tint_peach">#ffe8d4</color>
+    <color name="notion_card_tint_rose">#fde0ec</color>
+    <color name="notion_card_tint_mint">#d9f3e1</color>
+    <color name="notion_card_tint_lavender">#e6e0f5</color>
+    <color name="notion_card_tint_sky">#dcecfa</color>
+    <color name="notion_card_tint_yellow">#fef7d6</color>
+    <color name="notion_card_tint_yellow_bold">#f9e79f</color>
+    <color name="notion_card_tint_cream">#f8f5e8</color>
+    <color name="notion_card_tint_gray">#f0eeec</color>
 
-    <!-- Secondary (Pale Lavender) -->
-    <color name="secondary">#5f5b77</color>
-    <color name="on_secondary">#ffffff</color>
-    <color name="secondary_container">#e2dcfd</color>
-    <color name="on_secondary_container">#635f7b</color>
+    <!-- Notion Surfaces & Borders -->
+    <color name="notion_canvas">#ffffff</color>
+    <color name="notion_surface">#f6f5f4</color>
+    <color name="notion_surface_soft">#fafaf9</color>
+    <color name="notion_hairline">#e5e3df</color>
+    <color name="notion_hairline_soft">#ede9e4</color>
+    <color name="notion_hairline_strong">#c8c4be</color>
 
-    <!-- Tertiary (Light Peach) -->
-    <color name="tertiary">#785741</color>
-    <color name="on_tertiary">#ffffff</color>
-    <color name="tertiary_container">#fdd1b4</color>
-    <color name="on_tertiary_container">#785841</color>
+    <!-- Notion Typography Colors -->
+    <color name="notion_ink_deep">#000000</color>
+    <color name="notion_ink">#1a1a1a</color>
+    <color name="notion_charcoal">#37352f</color>
+    <color name="notion_slate">#5d5b54</color>
+    <color name="notion_steel">#787671</color>
+    <color name="notion_stone">#a4a097</color>
+    <color name="notion_muted">#bbb8b1</color>
 
-    <!-- Error -->
-    <color name="error">#ba1a1a</color>
-    <color name="on_error">#ffffff</color>
-    <color name="error_container">#ffdad6</color>
-    <color name="on_error_container">#93000a</color>
-    <!-- Extended design tokens -->
-    <color name="secondary_fixed">#e5deff</color>
-    <color name="on_secondary_fixed">#1b1830</color>
-    <color name="tertiary_fixed">#ffdcc5</color>
-    <color name="on_tertiary_fixed">#2c1605</color>
-    <color name="surface_container">#eeeeee</color>
-    <color name="inverse_surface">#2f3131</color>
+    <!-- Standard Material 3 Baseline Colors (Light Mapped to Notion) -->
+    <color name="primary">@color/notion_primary</color>
+    <color name="on_primary">@color/notion_on_primary</color>
+    <color name="primary_container">@color/notion_card_tint_lavender</color>
+    <color name="on_primary_container">@color/notion_brand_purple_800</color>
 
+    <color name="secondary">@color/notion_brand_navy</color>
+    <color name="on_secondary">@color/white</color>
+    <color name="secondary_container">@color/notion_card_tint_peach</color>
+    <color name="on_secondary_container">@color/notion_brand_orange_deep</color>
+
+    <color name="tertiary">@color/notion_brand_purple</color>
+    <color name="on_tertiary">@color/white</color>
+    <color name="tertiary_container">@color/notion_card_tint_rose</color>
+    <color name="on_tertiary_container">@color/notion_brand_pink_deep</color>
+
+    <color name="error">#e03131</color>
+    <color name="on_error">@color/white</color>
+    <color name="error_container">@color/notion_card_tint_rose</color>
+    <color name="on_error_container">#a02e6d</color>
+
+    <color name="surface">@color/notion_canvas</color>
+    <color name="on_surface">@color/notion_ink</color>
+    <color name="surface_variant">@color/notion_surface</color>
+    <color name="on_surface_variant">@color/notion_charcoal</color>
+
+    <color name="outline">@color/notion_hairline_strong</color>
+    <color name="outline_variant">@color/notion_hairline</color>
+
+    <!-- Legacy compatibility names if used in layouts -->
+    <color name="stroke">@color/notion_hairline</color>
+    <color name="surface_dim">@color/notion_surface</color>
+    <color name="surface_container_lowest">@color/notion_canvas</color>
+    <color name="surface_container_low">@color/notion_surface_soft</color>
+    <color name="surface_container">@color/notion_surface</color>
+    <color name="inverse_surface">@color/notion_ink</color>
+
+    <!-- Fixed accent colors -->
+    <color name="secondary_fixed">@color/notion_card_tint_peach</color>
+    <color name="on_secondary_fixed">@color/notion_brand_orange_deep</color>
+    <color name="tertiary_fixed">@color/notion_card_tint_rose</color>
+    <color name="on_tertiary_fixed">@color/notion_brand_pink_deep</color>
 </resources>

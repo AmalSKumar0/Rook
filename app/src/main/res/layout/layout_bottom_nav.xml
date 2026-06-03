@@ -114,7 +114,7 @@
             android:src="@drawable/ic_nav_profile"
             android:padding="1dp"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Corner.Circle"
-            app:strokeWidth="2dp"
+            app:strokeWidth="1dp"
             app:strokeColor="@color/on_surface_variant"
             app:tint="@color/on_surface_variant" />
     </LinearLayout>

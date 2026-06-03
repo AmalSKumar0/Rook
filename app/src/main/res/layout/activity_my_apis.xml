@@ -110,7 +110,7 @@
         app:icon="@drawable/ic_nav_add"
         app:iconTint="@color/on_primary_container"
         app:strokeColor="@color/stroke"
-        app:strokeWidth="2dp" />
+        app:strokeWidth="1dp" />
 
     <include layout="@layout/layout_bottom_nav" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -141,22 +141,26 @@ public class ReportsActivity extends AppCompatActivity {
     }
 
     private StatusColors colorsFor(String method, String status) {
-        String badgeColor = "#a8e6cf";
-        String textColor = "#2c6957";
-        String dotColor = "#2c6956";
+        // Mint / Brand Green default
+        String badgeColor = "#d9f3e1";
+        String textColor = "#1aae39";
+        String dotColor = "#1aae39";
 
         if (status.startsWith("4") || status.startsWith("5") || status.equalsIgnoreCase("ERROR")) {
-            badgeColor = "#ffdad6";
-            textColor = "#93000a";
-            dotColor = "#ba1a1a";
+            // Rose / Semantic Error
+            badgeColor = "#fde0ec";
+            textColor = "#e03131";
+            dotColor = "#e03131";
         } else if (status.startsWith("3")) {
-            badgeColor = "#fdd1b4";
-            textColor = "#785841";
-            dotColor = "#785741";
+            // Peach / Orange
+            badgeColor = "#ffe8d4";
+            textColor = "#793400";
+            dotColor = "#dd5b00";
         } else if (status.startsWith("2") && method.equalsIgnoreCase("POST")) {
-            badgeColor = "#e2dcfd";
-            textColor = "#635f7b";
-            dotColor = "#5f5b77";
+            // Lavender / Brand Purple 800
+            badgeColor = "#e6e0f5";
+            textColor = "#391c57";
+            dotColor = "#7b3ff2";
         }
         return new StatusColors(badgeColor, textColor, dotColor);
     }

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@color/surface_container_lowest"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="3dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/stroke">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Left Accent Stripe indicating Success/Failure -->
+        <View
+            android:id="@+id/vAccentStripe"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="@color/primary_container"
+            tools:background="@color/primary_container" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Method Badge + Latency row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tvMethodBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
+                    android:text="GET"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="8dp"
+                    tools:background="@drawable/bg_badge_get"
+                    tools:textColor="@color/on_primary_container" />
+
+                <TextView
+                    android:id="@+id/tvLatency"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="120ms"
+                    android:textColor="@color/outline"
+                    android:textSize="13sp"
+                    tools:text="120ms" />
+
+                <!-- Success/Failure Badge -->
+                <TextView
+                    android:id="@+id/tvStatusBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"
+                    android:text="SUCCESS"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="8dp"
+                    tools:background="@drawable/bg_badge_get"
+                    tools:textColor="@color/primary" />
+            </LinearLayout>
+
+            <!-- Path / Request URL -->
+            <TextView
+                android:id="@+id/tvPath"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="/users/profile"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="@color/on_surface"
+                android:layout_marginBottom="4dp"
+                tools:text="/api/v1/users" />
+
+            <!-- Subtext: URL or details -->
+            <TextView
+                android:id="@+id/tvUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="https://api.example.com/api/v1/users"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="12sp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:layout_marginBottom="6dp"
+                tools:text="https://api.example.com/api/v1/users" />
+
+            <!-- Response Preview / Error Message -->
+            <TextView
+                android:id="@+id/tvResponsePreview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/surface_container_low"
+                android:padding="8dp"
+                android:textColor="@color/on_surface"
+                android:textSize="11sp"
+                android:fontFamily="monospace"
+                android:maxLines="3"
+                android:ellipsize="end"
+                tools:text="{\n  &quot;status&quot;: &quot;success&quot;\n}" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

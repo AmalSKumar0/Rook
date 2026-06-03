@@ -16,9 +16,8 @@
         <item name="colorSurface">@color/surface</item>
         <item name="colorOnSurface">@color/on_surface</item>
         <item name="android:windowBackground">@color/surface</item>
-        <!-- Ensure EditText text is always visible in dark mode -->
         <item name="android:textColorPrimary">@color/on_surface</item>
         <item name="android:textColorSecondary">@color/on_surface_variant</item>
-        <item name="android:editTextColor">@color/on_surface</item>
+        <item name="materialCardViewStyle">@style/Widget.App.CardView</item>
     </style>
 </resources>

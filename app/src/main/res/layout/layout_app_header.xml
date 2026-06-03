@@ -43,14 +43,14 @@
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
                 app:strokeColor="@color/stroke"
-                app:strokeWidth="2dp">
+                app:strokeWidth="1dp">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_bubbly_logo" />
+                    android:src="@drawable/ic_app_logo" />
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout

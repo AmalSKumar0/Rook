@@ -47,7 +47,7 @@
                 app:cardBackgroundColor="@color/surface_container_lowest"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
-                app:strokeWidth="2dp"
+                app:strokeWidth="1dp"
                 app:strokeColor="@color/stroke">
 
                 <LinearLayout
@@ -235,7 +235,7 @@
                         android:textColor="@color/on_primary"
                         android:backgroundTint="@color/primary"
                         app:cornerRadius="12dp"
-                        app:strokeWidth="2dp"
+                        app:strokeWidth="1dp"
                         app:strokeColor="@color/stroke"
                         app:icon="@android:drawable/ic_menu_send"
                         app:iconGravity="textEnd"
@@ -313,7 +313,7 @@
                 app:cardBackgroundColor="@color/surface_container_lowest"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
-                app:strokeWidth="2dp"
+                app:strokeWidth="1dp"
                 app:strokeColor="@color/stroke">
 
                 <LinearLayout
