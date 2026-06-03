@@ -126,7 +126,7 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_weight="1"
             android:background="@color/stroke" />
 
@@ -140,7 +140,7 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_weight="1"
             android:background="@color/stroke" />
     </LinearLayout>
