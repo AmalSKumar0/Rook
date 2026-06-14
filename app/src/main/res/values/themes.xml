@@ -20,58 +20,65 @@
         <item name="android:textColorPrimary">@color/on_surface</item>
         <item name="android:textColorSecondary">@color/on_surface_variant</item>
         <item name="materialCardViewStyle">@style/Widget.App.CardView</item>
+        <!-- Notion Sans / Inter font family integration -->
+        <item name="android:fontFamily">@font/inter</item>
     </style>
 
     <style name="Theme.Rook" parent="Base.Theme.Rook" />
 
-    <!-- Bubbly Card View styling (2dp stroke, 16dp rounded corners) -->
+    <!-- Notion Card View styling (1dp hairline stroke, 12dp rounded corners) -->
     <style name="Widget.App.CardView" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardCornerRadius">16dp</item>
-        <item name="strokeWidth">2dp</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="strokeWidth">1dp</item>
         <item name="strokeColor">@color/stroke</item>
         <item name="cardBackgroundColor">@color/surface_container_lowest</item>
-        <item name="cardElevation">2dp</item>
+        <item name="cardElevation">1dp</item>
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.Card</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.App.Card" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">16dp</item>
+        <item name="cornerSize">12dp</item>
     </style>
 
-    <!-- Bubbly Button Style (Offset Tonal Shadows via hard stroke) -->
+    <!-- Notion Button Style (8dp rectangular rounded corners, clean flat background) -->
     <style name="Widget.Bubbly.Button" parent="Widget.Material3.Button">
-        <item name="backgroundTint">@color/primary_container</item>
-        <item name="android:textColor">@color/on_surface</item>
-        <item name="strokeColor">@color/stroke</item>
-        <item name="strokeWidth">2dp</item>
-        <item name="cornerRadius">24dp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="strokeColor">@android:color/transparent</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
-    <!-- Secondary Button -->
-    <style name="Widget.Bubbly.Button.Secondary" parent="Widget.Bubbly.Button">
+    <!-- Secondary Button (Gray Card style background, hairline border) -->
+    <style name="Widget.Bubbly.Button.Secondary" parent="Widget.Material3.Button.ElevatedButton">
         <item name="backgroundTint">@color/secondary_container</item>
+        <item name="android:textColor">@color/on_secondary_container</item>
+        <item name="strokeColor">@color/outline</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textStyle">normal</item>
     </style>
     
     <!-- Outline Button -->
     <style name="Widget.Bubbly.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
         <item name="backgroundTint">@android:color/transparent</item>
-        <item name="strokeColor">@color/stroke</item>
-        <item name="strokeWidth">2dp</item>
-        <item name="cornerRadius">24dp</item>
+        <item name="strokeColor">@color/outline</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cornerRadius">8dp</item>
         <item name="android:textColor">@color/on_surface</item>
     </style>
 
-    <!-- Bubbly TextInputLayout -->
+    <!-- Notion-style TextInputLayout (8dp box corner radius, 1dp outline stroke) -->
     <style name="Widget.Bubbly.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/stroke</item>
-        <item name="boxStrokeWidth">2dp</item>
-        <item name="boxStrokeWidthFocused">3dp</item>
-        <item name="boxCornerRadiusTopStart">24dp</item>
-        <item name="boxCornerRadiusTopEnd">24dp</item>
-        <item name="boxCornerRadiusBottomStart">24dp</item>
-        <item name="boxCornerRadiusBottomEnd">24dp</item>
+        <item name="boxStrokeColor">@color/outline</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1.5dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
         <item name="boxBackgroundColor">@color/surface_container_lowest</item>
         <item name="hintTextColor">@color/on_surface_variant</item>
         <item name="android:textColorHint">@color/on_surface_variant</item>
